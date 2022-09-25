@@ -8,7 +8,8 @@
 # the minimum of four nodes for the network.
 
 # You can request more elastic IP by contacting AWS support though.  
-# The same applies for VPC, which have a "soft" limit of 5, but can be extended by contacting support
+# The same applies for VPC and internet gateways, which have a "soft" limit of 5, but can be extended 
+# by contacting support or using the AWS ServieQuotas console
 
 # When 'use_elastic_ips' is set to false a public IP address is assigned to the instance by default
 # and only a single interface and subnet are created.  Meaning the node will need to share the one
