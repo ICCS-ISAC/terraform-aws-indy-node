@@ -75,6 +75,11 @@ resource "aws_instance" "indy_node" {
     device_index         = 0
   }
 
+  metadata_options {
+    http_tokens = var.http_tokens
+    http_endpoint = var.http_endpoint
+  }
+
   depends_on = [
     aws_internet_gateway.node_gateway
   ]
