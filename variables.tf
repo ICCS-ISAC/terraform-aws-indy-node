@@ -18,7 +18,6 @@ variable "ec2_instance_type" {
   description = "Type of instance ec2"
 }
 
-
 variable "iam_profile" {
   description = "The IAM profile to attach to the ec2 instance."
   default     = null
@@ -65,7 +64,6 @@ variable "ssh_source_address" {
   description = "The source IP address for SSH connections, in CIDR notation."
 }
 
-
 variable "client_port" {
   description = "The port, within the indy range of 9700 to 9799, on which the client interface will listen."
   default     = "9702"
@@ -78,15 +76,22 @@ variable "node_port" {
 
 variable "vpc_node_cidr_block" {
   description = "VPC IP CIDR"
-
 }
 
 variable "ssh_key_name" {
   description = "Name of the EC2 ssh public key to use to ssh in"
-
 }
 
 variable "zone" {
   description = "Availability zone where to deploy the VM"
+}
 
+variable "http_tokens" {
+  description = "Whether or not the instance metadata service requires session tokens (IMDSv2). Valid values include 'optional' or 'required'."
+  default     = "required"
+}
+
+variable "http_endpoint" {
+  description = "Whether the metadata service is available. Valid values include enabled or disabled."
+  default     = "enabled"
 }
