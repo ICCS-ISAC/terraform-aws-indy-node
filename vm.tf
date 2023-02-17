@@ -84,8 +84,11 @@ resource "aws_instance" "indy_node" {
     aws_internet_gateway.node_gateway
   ]
 
-  tags = {
+  tags = merge(
+    var.opt_ec2_tags,
+    {
     Name     = var.instance_name
-    Instance = var.instance_name
-  }
+    Instance = var.instance_name    
+    },
+  )
 }

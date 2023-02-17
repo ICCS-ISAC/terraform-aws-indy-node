@@ -95,3 +95,10 @@ variable "http_endpoint" {
   description = "Whether the metadata service is available. Valid values include enabled or disabled."
   default     = "enabled"
 }
+
+variable "opt_ec2_tags" {
+  description = "Allows to add optional tags to EC2 vm's"
+  type = map(string)
+  default = {    
+  }
+}
