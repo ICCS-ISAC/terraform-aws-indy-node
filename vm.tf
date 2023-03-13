@@ -76,7 +76,7 @@ resource "aws_instance" "indy_node" {
   }
 
   metadata_options {
-    http_tokens = var.http_tokens
+    http_tokens   = var.http_tokens
     http_endpoint = var.http_endpoint
   }
 
@@ -84,8 +84,11 @@ resource "aws_instance" "indy_node" {
     aws_internet_gateway.node_gateway
   ]
 
-  tags = {
-    Name     = var.instance_name
-    Instance = var.instance_name
-  }
+  tags = merge(
+    var.opt_ec2_tags,
+    {
+      Name     = var.instance_name
+      Instance = var.instance_name
+    },
+  )
 }
