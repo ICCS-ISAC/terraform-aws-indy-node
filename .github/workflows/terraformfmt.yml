@@ -1,7 +1,7 @@
 name: Fix terraform file formatting
 
 on:
-  - push
+  - pull_request
 
 jobs:
   format:
