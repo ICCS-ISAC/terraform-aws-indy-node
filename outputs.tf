@@ -7,5 +7,5 @@ output "node_info" {
     # node_seed
     # Remove special characters and crop to into a 32 character seed.
     substr(replace(replace(random_id.node_seed.b64_url, "_", ""), "-", ""), 0, 32)
-    ]
+  ]
 }

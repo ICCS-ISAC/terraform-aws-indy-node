@@ -1,4 +1,4 @@
-name: Generate terraform docs
+name: Terraform FMT and generate terraform docs
 on:
   - pull_request
 jobs:
@@ -9,6 +9,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
+      - name: terraform fmt
+        uses: dflook/terraform-fmt@v1
+        with:
+          path: .
+
       - name: Render terraform docs inside the README.md and push changes back to PR branch
         uses: terraform-docs/gh-actions@main
         with:
@@ -16,3 +21,4 @@ jobs:
           output-file: README.md
           output-method: inject
           git-push: "true"
+          git-push-sign-off: "true"
