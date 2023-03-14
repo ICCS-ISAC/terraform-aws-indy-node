@@ -1,71 +1,3 @@
-<!-- ENTETE -->
-English version below
-[![License](https://img.shields.io/badge/License-Apache2-blue)](LICENSE)
-
----
-
-<!-- FIN ENTETE -->
-
-# AWS Indy-Node Module
-
-A Terraform module for managing the resources needed for an Indy-Node node in AWS.
-
-Supports the generation of one or more nodes.
-
-## AWS resource limits
-AWS has "soft" limits on many ressources required to deploy the indy nodes, which prevent deploying 4 nodes in the same region.
-Fortunately, it is possible to ask to increase those limits through the **AWS Service Quotas** dashboard.
-Those ressources are:
-- Elastic IP -> limited to 5 per region by default
-- VPC -> limited to 5 per region by default
-- Internet Gateway -> limited to 5 per region by default
-
-## Usage
-
-```hcl
-module "indy-node" {
-  source = "github.com/CQEN-QDCE/terraform-aws-indy-node"
-
-
-  count             = 2
-  instance_name     = "Node-${count.index + 1}"
-  application_name  = "OurIndyNetwork"
-  environment       = "Dev"
-  zone              = data.aws_availability_zones.available.names[count.index % length(data.aws_availability_zones.available.names)]
-  ami_id            = data.aws_ami.ubuntu.id
-  ec2_instance_type = "t3.large"
-
-  root_volume_size          = "10"
-  data_volume_size          = "20"
-  ebs_volume_type           = "gp2"
-  ebs_encrypted             = true
-  ebs_kms_key_id            = var.candy_ebs_kms_key_id
-  ebs_delete_on_termination = true
-
-  iam_profile = data.aws_iam_role.ssm_role.id
-
-  ssh_source_address = "0.0.0.0/0"
-
-  use_elastic_ips = true
-
-  subnet_node_cidr_block   = "10.0.1.0/24"
-  subnet_client_cidr_block = "10.0.2.0/24"
-  vpc_node_cidr_block      = "10.0.0.0/24"
-
-  ssh_key_name = aws_key_pair.ansible.key_name
-}
-```
-##  Availability Zones
-
-For the best redundancy and resilience, when more then one node is deployed, each node will deploy itself in a different availability zone.  Note that the number of availaibility zones changes for each region.
-
-##  Security
-
-This code make some security decision that follow some security best practices.
-  - IAM profile used for deployment (assume_role in the AWS provider block)
-  - IAM profile attached to the EC2 VM 
-  - SSH key used for remote SSH access to the VM
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -122,9 +54,12 @@ No modules.
 | <a name="input_ebs_volume_type"></a> [ebs\_volume\_type](#input\_ebs\_volume\_type) | EBS volume type | `any` | n/a | yes |
 | <a name="input_ec2_instance_type"></a> [ec2\_instance\_type](#input\_ec2\_instance\_type) | Type of instance ec2 | `any` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment. | `any` | n/a | yes |
+| <a name="input_http_endpoint"></a> [http\_endpoint](#input\_http\_endpoint) | Whether the metadata service is available. Valid values include enabled or disabled. | `string` | `"enabled"` | no |
+| <a name="input_http_tokens"></a> [http\_tokens](#input\_http\_tokens) | Whether or not the instance metadata service requires session tokens (IMDSv2). Valid values include 'optional' or 'required'. | `string` | `"required"` | no |
 | <a name="input_iam_profile"></a> [iam\_profile](#input\_iam\_profile) | The IAM profile to attach to the ec2 instance. | `any` | `null` | no |
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | The value to use for the Name tag of the EC2 instance | `any` | n/a | yes |
 | <a name="input_node_port"></a> [node\_port](#input\_node\_port) | The port, within the indy range of 9700 to 9799, on which the node interface will listen. | `string` | `"9701"` | no |
+| <a name="input_opt_ec2_tags"></a> [opt\_ec2\_tags](#input\_opt\_ec2\_tags) | Allows to add optional tags to EC2 vm's | `map(string)` | `{}` | no |
 | <a name="input_root_volume_size"></a> [root\_volume\_size](#input\_root\_volume\_size) | Root EBS volume size | `any` | n/a | yes |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | Name of the EC2 ssh public key to use to ssh in | `any` | n/a | yes |
 | <a name="input_ssh_source_address"></a> [ssh\_source\_address](#input\_ssh\_source\_address) | The source IP address for SSH connections, in CIDR notation. | `any` | n/a | yes |
