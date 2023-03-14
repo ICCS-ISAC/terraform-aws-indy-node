@@ -14,4 +14,4 @@ jobs:
       - name: terraform fmt
         uses: dflook/terraform-fmt@v1
         with:
-          path: my-terraform-config
+          path: .
