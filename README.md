@@ -123,9 +123,12 @@ No modules.
 | <a name="input_ebs_volume_type"></a> [ebs\_volume\_type](#input\_ebs\_volume\_type) | EBS volume type | `any` | n/a | yes |
 | <a name="input_ec2_instance_type"></a> [ec2\_instance\_type](#input\_ec2\_instance\_type) | Type of instance ec2 | `any` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment. | `any` | n/a | yes |
+| <a name="input_http_endpoint"></a> [http\_endpoint](#input\_http\_endpoint) | Whether the metadata service is available. Valid values include enabled or disabled. | `string` | `"enabled"` | no |
+| <a name="input_http_tokens"></a> [http\_tokens](#input\_http\_tokens) | Whether or not the instance metadata service requires session tokens (IMDSv2). Valid values include 'optional' or 'required'. | `string` | `"required"` | no |
 | <a name="input_iam_profile"></a> [iam\_profile](#input\_iam\_profile) | The IAM profile to attach to the ec2 instance. | `any` | `null` | no |
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | The value to use for the Name tag of the EC2 instance | `any` | n/a | yes |
 | <a name="input_node_port"></a> [node\_port](#input\_node\_port) | The port, within the indy range of 9700 to 9799, on which the node interface will listen. | `string` | `"9701"` | no |
+| <a name="input_opt_ec2_tags"></a> [opt\_ec2\_tags](#input\_opt\_ec2\_tags) | Allows to add optional tags to EC2 vm's | `map(string)` | `{}` | no |
 | <a name="input_root_volume_size"></a> [root\_volume\_size](#input\_root\_volume\_size) | Root EBS volume size | `any` | n/a | yes |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | Name of the EC2 ssh public key to use to ssh in | `any` | n/a | yes |
 | <a name="input_ssh_source_address"></a> [ssh\_source\_address](#input\_ssh\_source\_address) | The source IP address for SSH connections, in CIDR notation. | `any` | n/a | yes |
