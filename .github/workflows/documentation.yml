@@ -37,3 +37,4 @@ jobs:
           output-method: inject
           git-push: "true"
           git-push-sign-off: "true"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
