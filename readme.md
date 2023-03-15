@@ -55,6 +55,7 @@ module "indy-node" {
   ssh_key_name = aws_key_pair.ansible.key_name
 }
 ```
+
 ##  Availability Zones
 
 For the best redundancy and resilience, when more then one node is deployed, each node will deploy itself in a different availability zone.  Note that the number of availaibility zones changes for each region.
