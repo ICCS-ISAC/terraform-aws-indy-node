@@ -6,6 +6,11 @@ output "node_info" {
     aws_ebs_volume.data_volume.id,
     # node_seed
     # Remove special characters and crop to into a 32 character seed.
-    substr(replace(replace(random_id.node_seed.b64_url, "_", ""), "-", ""), 0, 32)
+    substr(replace(replace(random_id.node_seed.b64_url, "_", ""), "-", ""), 0, 32),
+    # The node's public Client IP.   Used later on for automatic genesis file generation
+    aws_eip.public_client_ip,
+    # The node's public Node IP.  Used later on for automatic genesis file generation.  
+    # Should be the same as the first output, but we are putting this here anyay for clarity.
+    aws_eip.public_node_ip
   ]
 }
