@@ -2,7 +2,7 @@
 resource "aws_eip" "public_client_ip" {
   count = var.use_elastic_ips ? 1 : 0
 
-  vpc                       = true
+  domain                    = "vpc"
   network_interface         = aws_network_interface.client_nic[count.index].id
   associate_with_private_ip = aws_network_interface.client_nic[count.index].private_ip
 
@@ -19,7 +19,7 @@ resource "aws_eip" "public_client_ip" {
 resource "aws_eip" "public_node_ip" {
   count = var.use_elastic_ips ? 1 : 0
 
-  vpc                       = true
+  domain                    = "vpc"
   network_interface         = aws_network_interface.node_nic.id
   associate_with_private_ip = aws_network_interface.node_nic.private_ip
 
