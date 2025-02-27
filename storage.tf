@@ -8,7 +8,10 @@ resource "aws_ebs_volume" "data_volume" {
 
   tags = {
     Name     = "${var.instance_name} - Data Volume"
-    Instance = var.instance_name
+    Application = var.application_name
+    Environment = var.environment
+    Instance    = var.instance_name
+    Zone        = var.zone
   }
 }
 
