@@ -1,4 +1,3 @@
-
 resource "aws_eip" "public_client_ip" {
   count = var.use_elastic_ips ? 1 : 0
 
@@ -13,6 +12,12 @@ resource "aws_eip" "public_client_ip" {
   tags = {
     Name     = "${var.instance_name} - Client IP"
     Instance = var.instance_name
+  }
+  
+  # This IP address is registered in the blockchain network.
+  # Destroying it would break connections to the node, so we prevent accidental destruction.
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
@@ -30,6 +35,12 @@ resource "aws_eip" "public_node_ip" {
   tags = {
     Name     = "${var.instance_name} - Node IP"
     Instance = var.instance_name
+  }
+  
+  # This IP address is registered in the blockchain network.
+  # Destroying it would break connections to the node, so we prevent accidental destruction.
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
